@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(ls \"D:/Download/New folder \\(9\\)/tailadmin-free-tailwind-dashboard-template-main/src/partials/\")",
+      "Read(//d/Download/New folder \\(9\\)/tailadmin-free-tailwind-dashboard-template-main/src/partials/**)",
+      "Read(//d/Download/New folder \\(9\\)/tailadmin-free-tailwind-dashboard-template-main/src/**)",
+      "Read(//d/Download/New folder \\(9\\)/tailadmin-free-tailwind-dashboard-template-main/**)",
+      "Bash(php artisan *)",
+      "Bash(unzip -p \"Form Serah Terima IT.xlsx\" xl/sharedStrings.xml)"
+    ]
+  }
+}
