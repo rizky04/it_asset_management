@@ -7,16 +7,28 @@ use Illuminate\Http\Request;
 
 class HandoverController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $handovers = Handover::latest()->paginate(15);
+        $q = $request->input('q');
 
-        return view('handovers.index', compact('handovers'));
+        $handovers = Handover::when($q, function ($query) use ($q) {
+            $query->where(function ($sub) use ($q) {
+                $sub->where('doc_number', 'like', "%{$q}%")
+                    ->orWhere('to_name', 'like', "%{$q}%")
+                    ->orWhere('from_name', 'like', "%{$q}%")
+                    ->orWhere('to_department', 'like', "%{$q}%")
+                    ->orWhere('serial_number', 'like', "%{$q}%")
+                    ->orWhere('merek', 'like', "%{$q}%")
+                    ->orWhere('type_device', 'like', "%{$q}%");
+            });
+        })->latest('handover_date')->latest()->paginate(15)->withQueryString();
+
+        return view('handovers.index', compact('handovers', 'q'));
     }
 
     public function create()
     {
-        $handover = new Handover();
+        $handover = new Handover;
         $docNumber = $handover->generateDocNumber();
 
         return view('handovers.create', compact('docNumber'));
@@ -76,7 +88,7 @@ class HandoverController extends Controller
     public function update(Request $request, Handover $handover)
     {
         $validated = $request->validate([
-            'doc_number' => 'required|string|unique:handovers,doc_number,' . $handover->id,
+            'doc_number' => 'required|string|unique:handovers,doc_number,'.$handover->id,
             'type' => 'required|in:laptop,add_on',
             'handover_date' => 'required|date',
             'from_name' => 'required|string|max:255',
@@ -110,6 +122,57 @@ class HandoverController extends Controller
         $handover->update($validated);
 
         return redirect()->route('handovers.show', $handover)->with('success', 'Serah terima berhasil diperbarui.');
+    }
+
+    /** Form konfirmasi pengembalian */
+    public function returnForm(Handover $handover)
+    {
+        abort_if($handover->isReturned(), 404);
+
+        return view('handovers.return', compact('handover'));
+    }
+
+    /** Simpan pengembalian */
+    public function returnStore(Request $request, Handover $handover)
+    {
+        abort_if($handover->isReturned(), 404);
+
+        $validated = $request->validate([
+            'returned_by'  => 'required|string|max:255',
+            'returned_at'  => 'required|date',
+            'return_notes' => 'nullable|string',
+        ]);
+
+        $handover->update([
+            'status'       => 'returned',
+            'returned_by'  => $validated['returned_by'],
+            'returned_at'  => $validated['returned_at'],
+            'return_notes' => $validated['return_notes'] ?? null,
+        ]);
+
+        return redirect()->route('handovers.show', $handover)
+            ->with('success', 'Laptop berhasil dicatat sebagai dikembalikan.');
+    }
+
+    /** Buka form serah terima baru dengan spek ter-copy dari handover lama */
+    public function redispatch(Handover $handover)
+    {
+        abort_if(! $handover->isReturned(), 404);
+
+        $handover->load('signatures');
+        $docNumber = $handover->generateDocNumber();
+
+        return view('handovers.create', [
+            'docNumber' => $docNumber,
+            'prefill'   => $handover,
+        ]);
+    }
+
+    public function print(Handover $handover)
+    {
+        $handover->load('signatures');
+
+        return view('handovers.print', compact('handover'));
     }
 
     public function destroy(Handover $handover)

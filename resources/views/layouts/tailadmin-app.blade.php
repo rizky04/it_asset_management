@@ -25,18 +25,12 @@
                 <a href="{{ route('dashboard') }}">
                     <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
                         <span class="flex items-center gap-2">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="32" height="32" rx="7" fill="#465fff"/>
-                                <path d="M10 16H22M16 10V22" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                            </svg>
+                            <img src="{{ asset('logo.png') }}" alt="Logo" class="h-8 w-auto" />
                             <span class="text-lg font-bold text-gray-800 dark:text-white">{{ config('app.name', 'IT Asset') }}</span>
                         </span>
                     </span>
                     <span :class="sidebarToggle ? 'lg:block' : 'hidden'">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="32" height="32" rx="7" fill="#465fff"/>
-                            <path d="M10 16H22M16 10V22" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                        </svg>
+                        <img src="{{ asset('logo.png') }}" alt="Logo" class="h-8 w-auto" />
                     </span>
                 </a>
             </div>

@@ -114,10 +114,7 @@
             <!-- Right Panel -->
             <div class="relative items-center hidden w-full h-full bg-brand-950 dark:bg-white/5 lg:flex lg:w-1/2 justify-center">
                 <div class="flex flex-col items-center max-w-xs text-center px-8">
-                    <svg class="mb-6" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="64" height="64" rx="14" fill="#465fff"/>
-                        <path d="M22 32H42M32 22V42" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-                    </svg>
+                    <img src="{{ asset('logo.png') }}" alt="Logo" class="mb-6 h-16 w-auto" />
                     <h2 class="text-2xl font-bold text-white mb-3">{{ config('app.name', 'IT Asset') }}</h2>
                     <p class="text-gray-400 dark:text-white/60">
                         Sistem Manajemen Aset IT — kelola dan pantau aset teknologi informasi Anda dengan mudah.

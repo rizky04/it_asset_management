@@ -13,12 +13,27 @@ class Handover extends Model
         'device_label', 'merek', 'type_device', 'serial_number',
         'processor', 'storage', 'ram', 'screen_size', 'os', 'office_sw',
         'software_list', 'accessories_list', 'notes',
+        'status', 'returned_at', 'returned_by', 'return_notes',
     ];
 
     protected $casts = [
         'handover_date' => 'date',
+        'returned_at'   => 'datetime',
         'software_list' => 'array',
         'accessories_list' => 'array',
+    ];
+
+    public function isReturned(): bool
+    {
+        return $this->status === 'returned';
+    }
+
+    /** Field spesifikasi perangkat yang di-copy saat serah terima ulang */
+    public static array $deviceFields = [
+        'type', 'from_name', 'from_position', 'from_department', 'dept_head',
+        'device_label', 'merek', 'type_device', 'serial_number',
+        'processor', 'storage', 'ram', 'screen_size', 'os', 'office_sw',
+        'software_list', 'accessories_list',
     ];
 
     public function signatures(): \Illuminate\Database\Eloquent\Relations\HasMany

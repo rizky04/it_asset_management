@@ -46,29 +46,65 @@
                 </svg>
                 Kembali
             </a>
-            <h2 class="mt-2 text-2xl font-semibold text-gray-800 dark:text-white/90">Detail Serah Terima</h2>
+            <div class="mt-2 flex items-center gap-3">
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-white/90">Detail Serah Terima</h2>
+                @if ($handover->isReturned())
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+                        Dikembalikan
+                    </span>
+                @else
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-success-50 px-3 py-1 text-xs font-semibold text-success-600 dark:bg-success-500/10 dark:text-success-400">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+                        Aktif
+                    </span>
+                @endif
+            </div>
         </div>
         <div class="flex items-center gap-2">
             @if (session('success'))
                 <span class="text-sm font-medium text-success-600">{{ session('success') }}</span>
             @endif
-            <a href="{{ route('handovers.edit', $handover) }}"
-               class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M11 4H4C3.47 4 2.96 4.21 2.59 4.59C2.21 4.96 2 5.47 2 6V20C2 20.53 2.21 21.04 2.59 21.41C2.96 21.79 3.47 22 4 22H18C18.53 22 19.04 21.79 19.41 21.41C19.79 21.04 20 20.53 20 20V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M18.5 2.5C18.9 2.1 19.44 1.88 20 1.88C20.56 1.88 21.1 2.1 21.5 2.5C21.9 2.9 22.12 3.44 22.12 4C22.12 4.56 21.9 5.1 21.5 5.5L12 15L8 16L9 12L18.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Edit
-            </a>
-            <button onclick="window.print()"
-                    class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 transition-colors">
+
+            {{-- Tombol kontekstual berdasarkan status --}}
+            @if ($handover->isReturned())
+                {{-- Sudah dikembalikan: tawarkan serah terima ulang --}}
+                <a href="{{ route('handovers.redispatch', $handover) }}"
+                   class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 transition-colors">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 12V9C4 7.9 4.9 7 6 7H20M20 7L17 4M20 7L17 10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 12V15C20 16.1 19.1 17 18 17H4M4 17L7 20M4 17L7 14" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Serah Terima Ulang
+                </a>
+            @else
+                {{-- Masih aktif: bisa kembalikan, edit, cetak --}}
+                <a href="{{ route('handovers.return', $handover) }}"
+                   class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 15L3 9M3 9L9 3M3 9H15C16.6 9 18 9.7 19 10.8C20 11.9 20.5 13.4 20.5 15C20.5 18.6 17.6 21.5 14 21.5H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Kembalikan
+                </a>
+                <a href="{{ route('handovers.edit', $handover) }}"
+                   class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M11 4H4C3.47 4 2.96 4.21 2.59 4.59C2.21 4.96 2 5.47 2 6V20C2 20.53 2.21 21.04 2.59 21.41C2.96 21.79 3.47 22 4 22H18C18.53 22 19.04 21.79 19.41 21.41C19.79 21.04 20 20.53 20 20V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M18.5 2.5C18.9 2.1 19.44 1.88 20 1.88C20.56 1.88 21.1 2.1 21.5 2.5C21.9 2.9 22.12 3.44 22.12 4C22.12 4.56 21.9 5.1 21.5 5.5L12 15L8 16L9 12L18.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Edit
+                </a>
+            @endif
+
+            <a href="{{ route('handovers.print', $handover) }}" target="_blank"
+               class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 transition-colors {{ $handover->isReturned() ? 'hidden' : '' }}">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M6 9V2H18V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M6 18H4C3.47 18 2.96 17.79 2.59 17.41C2.21 17.04 2 16.53 2 16V11C2 10.47 2.21 9.96 2.59 9.59C2.96 9.21 3.47 9 4 9H20C20.53 9 21.04 9.21 21.41 9.59C21.79 9.96 22 10.47 22 11V16C22 16.53 21.79 17.04 21.41 17.41C21.04 17.79 20.53 18 20 18H18" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M18 14H6V22H18V14Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 Cetak
-            </button>
+            </a>
         </div>
     </div>
 
@@ -445,14 +481,51 @@
 
 /* ===== PRINT ===== */
 @media print {
+    /* Sembunyikan UI, biarkan konten mengalir */
     .no-print { display: none !important; }
-    aside, header, footer, nav { display: none !important; }
-    body, html { background: white !important; margin: 0; padding: 0; }
-    #doc { border: none !important; box-shadow: none !important; border-radius: 0 !important; }
-    .surat { padding: 0; max-width: 100%; color: #111 !important; }
-    .garis-tebal { border-top-color: #111 !important; }
-    .garis-tipis { border-top-color: #111 !important; }
-    .ttd-garis   { border-top-color: #111 !important; color: #111 !important; }
+    aside     { display: none !important; }
+    header    { display: none !important; }
+
+    /* Lepas constraint layout TailAdmin agar dokumen bisa dicetak */
+    body,
+    html,
+    body > div,
+    body > div > div,
+    body > div > div > div,
+    main {
+        display: block !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        background: white !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        flex: none !important;
+    }
+
+    /* Paksa semua teks di dokumen hitam */
+    .surat, .surat * {
+        color: #111 !important;
+        background: transparent !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        text-decoration-color: #111 !important;
+    }
+
+    .garis-tebal { border-top: 3px solid #111 !important; }
+    .garis-tipis { border-top: 1px solid #111 !important; }
+    .ttd-garis   { border-top: 1px solid #111 !important; }
+
+    #doc {
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        display: block !important;
+    }
+
+    .surat { padding: 0 !important; max-width: 100% !important; }
+
     @page { size: A4 portrait; margin: 2cm 2.5cm; }
 }
 </style>

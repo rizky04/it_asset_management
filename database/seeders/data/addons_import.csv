@@ -1,0 +1,21 @@
+dept,tanggal,from_name,to_name,merek,type_device,serial_number,processor,storage,ram,screen_size,os,office_sw,notes
+Corporate,02/03/2026,-,Evia Diana Pertiwi,Samsung,Galaxy Tab S10 FE 5G SM-X526B,350703930025346,-,128GB,8GB,10inch,-,-,
+Corporate,27/06/2024,-,Nadia Aprilia Tas'an,Apple,iPad,DMPCV8KSLM93,-,64GB,-,-,-,-,
+Corporate,29/04/2025,-,Dewa,Infinix,,355477771893162,Helio G1000,256 GB,16GB,6.78,-,-,
+Corporate,28/04/2023,Ragil Bayu Respati,Rahayu Kibtiani,OPPO,A74,211703fe,Snapdragon 662,128GB,6GB,6.43",-,-,skrng dipakai mbak Ayu Corp
+Corporate,28/04/2023,-,Rahayu Kibtiani,OPPO,A74,211703fe,Snapdragon 662,128GB,6GB,6.43",-,-,
+Thamrin,28/02/2023,-,Evi Diana Pertiwi,Oppo,Reno8 T 4G,FU4PRWDAKFY9Z90N,MediaTek Helio G99,8GB,256GB,6.43 inci,-,-,CRO
+Thamrin,28/02/2023,-,Evi Diana Pertiwi,Oppo,Reno8 T 4G,N7TCJRV4BY5XCYLN,MediaTek Helio G99,8GB,256GB,6.43 inci,-,-,MEDICARE
+Thamrin,19/02/2024,-,Evia Diana,WLN,M200 KD-C100U,,-,-,-,-,-,-,
+Thamrin,19/03/2025,-,Suci Tri Puspitaningrum,Apple,iPad Gen 9,KFWH4MFML6,-,64GB,-,10.2",-,-,
+Thamrin,25/04/2025,-,Fidelia Marchella Nakamase,SEAGATE EXPANSION HDD,SRD0NF1,NT1ACJW7,-,1TB,-,-,-,-,
+Thamrin,27/11/2025,-,Fenty Indria,Seagate,Expansion,-,-,1 TB,-,-,-,-,
+RnD,20/08/2025,-,Alinda Rahmani,Ugreen,SSD Samsung Evo,-,-,500GB,-,-,,,diserahkan ke dr Shinta
+Citraland,17/02/2023,-,Indah Nurhayati,Oppo,Reno8 T 4G,A6PJ9HX09LGUFYKB,MediaTek Helio G99,8GB,256GB,6.43 inci,-,-,
+Citraland,18/07/2024,-,Suci Tri Puspitaningrum,Oppo,Reno 11 F,QFAZLGM5PI7NRDE,-,256GB,8GB,-,-,-,
+Citraland,02/09/2024,-,Tjoa Liiy Phing,Apple,iPad Gen 9,MQPH4274CC,A13 Bionic,256GB,-,10.2,-,-,
+TP,17/02/2023,-,Indah Nurhayati,Oppo,Reno8 T 4G,A6PJ9HX09LGUFYKB,MediaTek Helio G99,8GB,256GB,6.43 inci,-,-,
+TP,05/02/2025,-,Evi Diana Pertiwi,Samsung,Tab A9+ 5G,,Samsung Exynos,-,128GB,8GB,11",-,-,
+KI,01/08/2023,-,Yeti Sumartiningsih,OPPO,Reno 8T,860443065272156,MediaTek Helio G99,256GB,8GB,6.43",-,-,CRO
+MKS,18/01/2024,-,Biwa Murtada Djamaluddin,Canon,M200,218073005764,-,16GB SD Card,-,-,-,-,
+BLP,19/03/2025,-,Suci Tri Puspitaningrum,Apple,iPad,KFWH4MFML6,-,64GB,-,10.2",-,-,

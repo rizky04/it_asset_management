@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HandoverController;
 use App\Http\Controllers\HandoverSignatureController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('handovers', HandoverController::class);
+    Route::get('handovers/{handover}/print', [HandoverController::class, 'print'])->name('handovers.print');
+    Route::get('handovers/{handover}/return', [HandoverController::class, 'returnForm'])->name('handovers.return');
+    Route::post('handovers/{handover}/return', [HandoverController::class, 'returnStore'])->name('handovers.return.store');
+    Route::get('handovers/{handover}/redispatch', [HandoverController::class, 'redispatch'])->name('handovers.redispatch');
 
     // Signature management (auth required)
     Route::post('handovers/{handover}/signatures/generate', [HandoverSignatureController::class, 'generate'])->name('handovers.signatures.generate');
@@ -34,8 +39,8 @@ require __DIR__.'/auth.php';
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');

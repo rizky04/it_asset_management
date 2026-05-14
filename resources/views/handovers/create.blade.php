@@ -9,10 +9,20 @@
         <h2 class="mt-2 text-2xl font-semibold text-gray-800 dark:text-white/90">Buat Serah Terima</h2>
     </div>
 
+    @if (isset($prefill))
+    <div class="mb-5 rounded-xl border border-brand-200 bg-brand-50 px-5 py-3.5 dark:border-brand-800 dark:bg-brand-500/10">
+        <p class="text-sm font-semibold text-brand-700 dark:text-brand-400">Serah Terima Ulang</p>
+        <p class="text-sm text-brand-600 dark:text-brand-300 mt-0.5">
+            Data spesifikasi dari <span class="font-mono font-semibold">{{ $prefill->doc_number }}</span> sudah terisi otomatis.
+            Lengkapi data penerima baru di bagian bawah.
+        </p>
+    </div>
+    @endif
+
     <form action="{{ route('handovers.store') }}" method="POST" x-data="{
-        type: 'laptop',
-        softwareList: [''],
-        accessoriesList: [''],
+        type: '{{ old('type', $prefill->type ?? 'laptop') }}',
+        softwareList: {{ json_encode(old('software_list', $prefill->software_list ?? [''])) }},
+        accessoriesList: {{ json_encode(old('accessories_list', $prefill->accessories_list ?? [''])) }},
         addSoftware() { this.softwareList.push('') },
         removeSoftware(i) { this.softwareList.splice(i, 1) },
         addAccessory() { this.accessoriesList.push('') },
@@ -59,23 +69,23 @@
                 <div class="space-y-4">
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Nama <span class="text-error-500">*</span></label>
-                        <input type="text" name="from_name" value="{{ old('from_name') }}" required
+                        <input type="text" name="from_name" value="{{ old('from_name', $prefill->from_name ?? '') }}" required
                                class="h-11 w-full rounded-lg border {{ $errors->has('from_name') ? 'border-error-500' : 'border-gray-300' }} bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                         @error('from_name') <p class="mt-1 text-sm text-error-500">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Jabatan</label>
-                        <input type="text" name="from_position" value="{{ old('from_position') }}"
+                        <input type="text" name="from_position" value="{{ old('from_position', $prefill->from_position ?? '') }}"
                                class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                     </div>
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Departemen</label>
-                        <input type="text" name="from_department" value="{{ old('from_department') }}"
+                        <input type="text" name="from_department" value="{{ old('from_department', $prefill->from_department ?? '') }}"
                                class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                     </div>
                     <div>
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Kepala Departemen</label>
-                        <input type="text" name="dept_head" value="{{ old('dept_head') }}"
+                        <input type="text" name="dept_head" value="{{ old('dept_head', $prefill->dept_head ?? '') }}"
                                class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                     </div>
                 </div>
@@ -116,24 +126,24 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Label Perangkat</label>
-                            <input type="text" name="device_label" value="{{ old('device_label') }}"
+                            <input type="text" name="device_label" value="{{ old('device_label', $prefill->device_label ?? '') }}"
                                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                         </div>
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Merek</label>
-                            <input type="text" name="merek" value="{{ old('merek') }}"
+                            <input type="text" name="merek" value="{{ old('merek', $prefill->merek ?? '') }}"
                                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Tipe Perangkat</label>
-                            <input type="text" name="type_device" value="{{ old('type_device') }}"
+                            <input type="text" name="type_device" value="{{ old('type_device', $prefill->type_device ?? '') }}"
                                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                         </div>
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Serial Number</label>
-                            <input type="text" name="serial_number" value="{{ old('serial_number') }}"
+                            <input type="text" name="serial_number" value="{{ old('serial_number', $prefill->serial_number ?? '') }}"
                                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                         </div>
                     </div>
@@ -141,36 +151,36 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Processor</label>
-                                <input type="text" name="processor" value="{{ old('processor') }}"
+                                <input type="text" name="processor" value="{{ old('processor', $prefill->processor ?? '') }}"
                                        class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                             </div>
                             <div>
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Storage</label>
-                                <input type="text" name="storage" value="{{ old('storage') }}" placeholder="128 GB SSD"
+                                <input type="text" name="storage" value="{{ old('storage', $prefill->storage ?? '') }}" placeholder="128 GB SSD"
                                        class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">RAM</label>
-                                <input type="text" name="ram" value="{{ old('ram') }}" placeholder="8 GB"
+                                <input type="text" name="ram" value="{{ old('ram', $prefill->ram ?? '') }}" placeholder="8 GB"
                                        class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                             </div>
                             <div>
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Ukuran Layar</label>
-                                <input type="text" name="screen_size" value="{{ old('screen_size') }}" placeholder='14"'
+                                <input type="text" name="screen_size" value="{{ old('screen_size', $prefill->screen_size ?? '') }}" placeholder='14"'
                                        class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Sistem Operasi</label>
-                                <input type="text" name="os" value="{{ old('os') }}" placeholder="Windows 11 Pro"
+                                <input type="text" name="os" value="{{ old('os', $prefill->os ?? '') }}" placeholder="Windows 11 Pro"
                                        class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                             </div>
                             <div>
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Office / Software Utama</label>
-                                <input type="text" name="office_sw" value="{{ old('office_sw') }}" placeholder="MS Office 2021"
+                                <input type="text" name="office_sw" value="{{ old('office_sw', $prefill->office_sw ?? '') }}" placeholder="MS Office 2021"
                                        class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                             </div>
                         </div>
