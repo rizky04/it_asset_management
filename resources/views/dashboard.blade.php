@@ -6,7 +6,7 @@
     </div>
 
     {{-- Stats Cards --}}
-    <div class="grid grid-cols-2 gap-4 xl:grid-cols-4 md:gap-5 mb-6">
+    <div class="mb-6" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;">
 
         {{-- Total Aset --}}
         <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900">

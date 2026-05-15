@@ -21,6 +21,7 @@
 /storage/*.key
 /storage/pail
 /vendor
+/tidak_boleh_expose
 _ide_helper.php
 Homestead.json
 Homestead.yaml

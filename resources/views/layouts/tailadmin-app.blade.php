@@ -21,91 +21,91 @@
             class="sidebar fixed left-0 top-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 dark:border-gray-800 dark:bg-black lg:static lg:translate-x-0"
         >
             <!-- SIDEBAR HEADER -->
-            <div :class="sidebarToggle ? 'justify-center' : 'justify-between'" class="flex items-center gap-2 pt-8 sidebar-header pb-7">
-                <a href="{{ route('dashboard') }}">
-                    <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
-                        <span class="flex items-center gap-2">
-                            <img src="{{ asset('logo.png') }}" alt="Logo" class="h-8 w-auto" />
-                            <span class="text-lg font-bold text-gray-800 dark:text-white">{{ config('app.name', 'IT Asset') }}</span>
-                        </span>
-                    </span>
-                    <span :class="sidebarToggle ? 'lg:block' : 'hidden'">
-                        <img src="{{ asset('logo.png') }}" alt="Logo" class="h-8 w-auto" />
-                    </span>
-                </a>
+            <div class="flex items-center gap-3 py-6 border-b border-gray-100 dark:border-gray-800 mb-2">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-500 shadow-sm">
+                    <img src="{{ asset('logo.png') }}" alt="Logo" class="h-6 w-6 object-contain" />
+                </div>
+                <div :class="sidebarToggle ? 'lg:hidden' : ''">
+                    <p class="text-sm font-bold text-gray-800 dark:text-white leading-tight">{{ config('app.name', 'IT Asset') }}</p>
+                    <p class="text-xs text-gray-400 dark:text-gray-500 leading-tight">Asset Management</p>
+                </div>
             </div>
 
-            <div class="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
-                <nav x-data="{selected: $persist('Dashboard')}">
-                    <!-- Menu Group -->
-                    <div>
-                        <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
-                            <span class="menu-group-title" :class="sidebarToggle ? 'lg:hidden' : ''">MENU</span>
-                            <svg :class="sidebarToggle ? 'lg:block hidden' : 'hidden'" class="mx-auto fill-current menu-group-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.99915 10.2451C6.96564 10.2451 7.74915 11.0286 7.74915 11.9951V12.0051C7.74915 12.9716 6.96564 13.7551 5.99915 13.7551C5.03265 13.7551 4.24915 12.9716 4.24915 12.0051V11.9951C4.24915 11.0286 5.03265 10.2451 5.99915 10.2451ZM17.9991 10.2451C18.9656 10.2451 19.7491 11.0286 19.7491 11.9951V12.0051C19.7491 12.9716 18.9656 13.7551 17.9991 13.7551C17.0326 13.7551 16.2491 12.9716 16.2491 12.0051V11.9951C16.2491 11.0286 17.0326 10.2451 17.9991 10.2451ZM13.7491 11.9951C13.7491 11.0286 12.9656 10.2451 11.9991 10.2451C11.0326 10.2451 10.2491 11.0286 10.2491 11.9951V12.0051C10.2491 12.9716 11.0326 13.7551 11.9991 13.7551C12.9656 13.7551 13.7491 12.9716 13.7491 12.0051V11.9951Z" fill=""/>
-                            </svg>
-                        </h3>
+            <div class="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar pt-2">
+                <nav>
+                    <!-- MENU -->
+                    <div class="mb-6">
+                        <p class="mb-2 px-2 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-600" :class="sidebarToggle ? 'lg:hidden' : ''">Menu</p>
+                        <ul class="flex flex-col gap-0.5">
 
-                        <ul class="flex flex-col gap-4 mb-6">
                             <!-- Dashboard -->
                             <li>
                                 <a href="{{ route('dashboard') }}"
-                                   class="menu-item group"
-                                   :class="(selected === 'Dashboard') || (page === 'dashboard') ? 'menu-item-active' : 'menu-item-inactive'">
-                                    <svg :class="(selected === 'Dashboard') || (page === 'dashboard') ? 'menu-item-icon-active' : 'menu-item-icon-inactive'" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                   class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors"
+                                   :class="page === 'dashboard' ? 'bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white'">
+                                    <svg class="shrink-0" :class="page === 'dashboard' ? 'text-brand-500' : 'text-gray-400 group-hover:text-gray-600'" width="20" height="20" viewBox="0 0 24 24" fill="none">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/>
                                     </svg>
-                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">Dashboard</span>
+                                    <span :class="sidebarToggle ? 'lg:hidden' : ''">Dashboard</span>
                                 </a>
                             </li>
 
                             <!-- Aset IT -->
                             <li>
                                 <a href="{{ route('assets.index') }}"
-                                   class="menu-item group"
-                                   :class="page === 'assets' ? 'menu-item-active' : 'menu-item-inactive'">
-                                    <svg :class="page === 'assets' ? 'menu-item-icon-active' : 'menu-item-icon-inactive'" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                   class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors"
+                                   :class="page === 'assets' ? 'bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white'">
+                                    <svg class="shrink-0" :class="page === 'assets' ? 'text-brand-500' : 'text-gray-400'" width="20" height="20" viewBox="0 0 24 24" fill="none">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3"/>
                                     </svg>
-                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">Aset IT</span>
+                                    <span :class="sidebarToggle ? 'lg:hidden' : ''">Aset IT</span>
                                 </a>
                             </li>
 
                             <!-- Peminjaman -->
                             <li>
                                 <a href="{{ route('lendings.index') }}"
-                                   class="menu-item group"
-                                   :class="page === 'lendings' ? 'menu-item-active' : 'menu-item-inactive'">
-                                    <svg :class="page === 'lendings' ? 'menu-item-icon-active' : 'menu-item-icon-inactive'" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                   class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors"
+                                   :class="page === 'lendings' ? 'bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white'">
+                                    <svg class="shrink-0" :class="page === 'lendings' ? 'text-brand-500' : 'text-gray-400'" width="20" height="20" viewBox="0 0 24 24" fill="none">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/>
                                     </svg>
-                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">Peminjaman</span>
+                                    <span :class="sidebarToggle ? 'lg:hidden' : ''">Peminjaman</span>
                                 </a>
                             </li>
 
                             <!-- Serah Terima -->
                             <li>
                                 <a href="{{ route('handovers.index') }}"
-                                   class="menu-item group"
-                                   :class="page === 'handovers' ? 'menu-item-active' : 'menu-item-inactive'">
-                                    <svg :class="page === 'handovers' ? 'menu-item-icon-active' : 'menu-item-icon-inactive'" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                   class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors"
+                                   :class="page === 'handovers' ? 'bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white'">
+                                    <svg class="shrink-0" :class="page === 'handovers' ? 'text-brand-500' : 'text-gray-400'" width="20" height="20" viewBox="0 0 24 24" fill="none">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12"/>
                                     </svg>
-                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">Serah Terima</span>
+                                    <span :class="sidebarToggle ? 'lg:hidden' : ''">Serah Terima</span>
                                 </a>
                             </li>
+
+                        </ul>
+                    </div>
+
+                    <!-- PENGATURAN -->
+                    <div>
+                        <p class="mb-2 px-2 text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-600" :class="sidebarToggle ? 'lg:hidden' : ''">Pengaturan</p>
+                        <ul class="flex flex-col gap-0.5">
 
                             <!-- Manajemen User -->
                             <li>
                                 <a href="{{ route('users.index') }}"
-                                   class="menu-item group"
-                                   :class="page === 'users' ? 'menu-item-active' : 'menu-item-inactive'">
-                                    <svg :class="page === 'users' ? 'menu-item-icon-active' : 'menu-item-icon-inactive'" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                   class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors"
+                                   :class="page === 'users' ? 'bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white'">
+                                    <svg class="shrink-0" :class="page === 'users' ? 'text-brand-500' : 'text-gray-400'" width="20" height="20" viewBox="0 0 24 24" fill="none">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>
                                     </svg>
-                                    <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">Manajemen User</span>
+                                    <span :class="sidebarToggle ? 'lg:hidden' : ''">Manajemen User</span>
                                 </a>
                             </li>
+
                         </ul>
                     </div>
                 </nav>
