@@ -4,7 +4,6 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HandoverController;
 use App\Http\Controllers\HandoverSignatureController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LendingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -44,11 +43,3 @@ Route::post('/sign/{token}', [HandoverSignatureController::class, 'store'])->nam
 Route::get('/sign/{token}/done', [HandoverSignatureController::class, 'done'])->name('sign.done');
 
 require __DIR__.'/auth.php';
-
-Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');

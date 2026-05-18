@@ -84,9 +84,9 @@
                                             Ingat saya
                                         </label>
                                     </div>
-                                    @if (Route::has('password.request'))
+                                    {{-- @if (Route::has('password.request'))
                                         <a href="{{ route('password.request') }}" class="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400">Lupa password?</a>
-                                    @endif
+                                    @endif --}}
                                 </div>
 
                                 <!-- Submit -->
@@ -99,14 +99,14 @@
                             </div>
                         </form>
 
-                        @if (Route::has('register'))
+                        {{-- @if (Route::has('register'))
                             <div class="mt-5">
                                 <p class="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
                                     Belum punya akun?
                                     <a href="{{ route('register') }}" class="text-brand-500 hover:text-brand-600 dark:text-brand-400">Daftar</a>
                                 </p>
                             </div>
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </div>
