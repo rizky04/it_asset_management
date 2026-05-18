@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Handover extends Model
 {
     protected $fillable = [
         'doc_number', 'type', 'handover_date',
-        'from_name', 'from_position', 'from_department', 'dept_head',
+        'from_name', 'from_position', 'from_department', 'dept_head', 'hrd_name',
         'to_name', 'to_position', 'to_department', 'to_address',
         'device_label', 'merek', 'type_device', 'serial_number',
         'processor', 'storage', 'ram', 'screen_size', 'os', 'office_sw',
@@ -18,7 +19,7 @@ class Handover extends Model
 
     protected $casts = [
         'handover_date' => 'date',
-        'returned_at'   => 'datetime',
+        'returned_at' => 'datetime',
         'software_list' => 'array',
         'accessories_list' => 'array',
     ];
@@ -36,7 +37,7 @@ class Handover extends Model
         'software_list', 'accessories_list',
     ];
 
-    public function signatures(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function signatures(): HasMany
     {
         return $this->hasMany(HandoverSignature::class);
     }
@@ -49,10 +50,10 @@ class Handover extends Model
     public function generateSignatures(): void
     {
         $roles = [
-            'dept_it'   => $this->from_name,
+            'dept_it' => $this->from_name,
             'dept_head' => $this->dept_head ?? 'Departemen Head',
-            'hrd'       => 'HRD - Personalia',
-            'penerima'  => $this->to_name,
+            'hrd' => $this->hrd_name ?? 'HCGA Legal',
+            'penerima' => $this->to_name,
         ];
 
         foreach ($roles as $role => $name) {
@@ -67,7 +68,7 @@ class Handover extends Model
     {
         $year = now()->year;
         $month = (int) now()->format('m');
-        $roman = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'][$month - 1];
+        $roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'][$month - 1];
         $count = static::whereYear('created_at', $year)->count() + 1;
 
         return sprintf('IT/%s/%s/%04d', $roman, $year, $count);

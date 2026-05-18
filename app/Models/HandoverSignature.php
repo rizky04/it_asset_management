@@ -18,7 +18,8 @@ class HandoverSignature extends Model
     public static array $roleLabels = [
         'dept_it'   => 'Departemen IT',
         'dept_head' => 'Departemen Head',
-        'hrd'       => 'HRD - Personalia',
+        'hrd'       => 'HCGA Legal',
+        // 'hrd'       => 'HRD - Personalia',
         'penerima'  => 'Penerima',
     ];
 

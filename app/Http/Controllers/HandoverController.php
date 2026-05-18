@@ -44,6 +44,7 @@ class HandoverController extends Controller
             'from_position' => 'nullable|string|max:255',
             'from_department' => 'nullable|string|max:255',
             'dept_head' => 'nullable|string|max:255',
+            'hrd_name' => 'nullable|string|max:255',
             'to_name' => 'required|string|max:255',
             'to_position' => 'nullable|string|max:255',
             'to_department' => 'nullable|string|max:255',
@@ -95,6 +96,7 @@ class HandoverController extends Controller
             'from_position' => 'nullable|string|max:255',
             'from_department' => 'nullable|string|max:255',
             'dept_head' => 'nullable|string|max:255',
+            'hrd_name' => 'nullable|string|max:255',
             'to_name' => 'required|string|max:255',
             'to_position' => 'nullable|string|max:255',
             'to_department' => 'nullable|string|max:255',
@@ -138,15 +140,15 @@ class HandoverController extends Controller
         abort_if($handover->isReturned(), 404);
 
         $validated = $request->validate([
-            'returned_by'  => 'required|string|max:255',
-            'returned_at'  => 'required|date',
+            'returned_by' => 'required|string|max:255',
+            'returned_at' => 'required|date',
             'return_notes' => 'nullable|string',
         ]);
 
         $handover->update([
-            'status'       => 'returned',
-            'returned_by'  => $validated['returned_by'],
-            'returned_at'  => $validated['returned_at'],
+            'status' => 'returned',
+            'returned_by' => $validated['returned_by'],
+            'returned_at' => $validated['returned_at'],
             'return_notes' => $validated['return_notes'] ?? null,
         ]);
 
@@ -164,7 +166,7 @@ class HandoverController extends Controller
 
         return view('handovers.create', [
             'docNumber' => $docNumber,
-            'prefill'   => $handover,
+            'prefill' => $handover,
         ]);
     }
 

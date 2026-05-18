@@ -298,7 +298,7 @@
                 $defaultName = match($role) {
                     'dept_it'   => $handover->from_name,
                     'dept_head' => $handover->dept_head ?? '___________________',
-                    'hrd'       => '___________________',
+                    'hrd'       => $handover->hrd_name ?? '___________________',
                     'penerima'  => $handover->to_name,
                 };
             @endphp
